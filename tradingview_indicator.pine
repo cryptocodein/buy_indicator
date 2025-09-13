@@ -1,0 +1,18 @@
+//@version=6
+indicator("buy indicator", overlay=true)
+
+// Настройки для индикатора
+length_sma = input.int(15, title="Длина SMA")
+atr_multiplier = input.float(-2.9, title="Множитель ATR", step=0.1)
+
+// Источник
+src = input.source(close, title="Источник")
+
+// Расчёт значения нащего индикатора
+atr_high = ta.atr(length_sma)
+sma_high = ta.sma(src, length_sma)
+atr = atr_high * atr_multiplier
+indicator = sma_high + atr
+
+// Отображение линий диапазона
+indicator_plot = plot(indicator, color=color.orange, linewidth=3)
